@@ -1,11 +1,8 @@
-mul = 1
+a = int(input())
+b = int(input())
+c = int(input())
 
-for i in range(3):
-    num = int(input())
-    mul *= num
-    
+result = list(str(a * b * c))
+
 for i in range(10):
-    if str(i) in str(mul):
-        print(str(mul).count(str(i)))
-    elif str(i) not in str(mul):
-        print(0)
+    print(result.count(str(i)))
