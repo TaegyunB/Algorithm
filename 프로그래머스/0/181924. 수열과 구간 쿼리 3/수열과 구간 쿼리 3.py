@@ -1,3 +1,12 @@
+# 간단한 풀이
+def solution(arr, queries):
+    for a, b in queries:
+        arr[a], arr[b] = arr[b], arr[a]
+
+    return arr
+
+
+# 내 풀이
 def solution(arr, queries):
     
     for i in range(len(queries)):
