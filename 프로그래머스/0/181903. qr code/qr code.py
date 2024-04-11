@@ -1,3 +1,8 @@
+# 간단한 코드
+def solution(q, r, code):
+    return code(r::q)
+
+# 내 코드
 def solution(q, r, code):
     answer = ''
     
