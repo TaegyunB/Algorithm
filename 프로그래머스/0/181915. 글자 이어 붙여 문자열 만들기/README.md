@@ -1,10 +1,10 @@
 # [level 0] 글자 이어 붙여 문자열 만들기 - 181915 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181915) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181915?language=java) 
 
 ### 성능 요약
 
-메모리: 10.3 MB, 시간: 0.00 ms
+메모리: 74.4 MB, 시간: 17.74 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 11일 12:32:49
+2024년 09월 15일 18:32:42
 
 ### 문제 설명
 
