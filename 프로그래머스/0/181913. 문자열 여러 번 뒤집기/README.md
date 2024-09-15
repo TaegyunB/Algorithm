@@ -1,10 +1,10 @@
 # [level 0] 문자열 여러 번 뒤집기 - 181913 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181913) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181913?language=java) 
 
 ### 성능 요약
 
-메모리: 10.2 MB, 시간: 0.97 ms
+메모리: 79.6 MB, 시간: 3.16 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 11일 13:19:18
+2024년 09월 16일 00:44:48
 
 ### 문제 설명
 
@@ -55,37 +55,23 @@
 <h5>입출력 예 설명</h5>
 
 <ul>
-<li><p>예제 1번의 <code>my_string</code>은 "rermgorpsam"이고 주어진 <code>queries</code>를 순서대로 처리하면 다음과 같습니다.</p>
-<table class="table">
-        <thead><tr>
-<th>queries</th>
-<th>my_string</th>
-</tr>
-</thead>
-        <tbody><tr>
-<td></td>
-<td>"rermgorpsam"</td>
-</tr>
-<tr>
-<td>[2, 3]</td>
-<td>"remrgorpsam"</td>
-</tr>
-<tr>
-<td>[0, 7]</td>
-<td>"progrmersam"</td>
-</tr>
-<tr>
-<td>[5, 9]</td>
-<td>"prograsremm"</td>
-</tr>
-<tr>
-<td>[6, 10]</td>
-<td>"programmers"</td>
-</tr>
-</tbody>
-      </table>
-<p>따라서 "programmers"를 return 합니다.</p></li>
+<li>예제 1번의 <code>my_string</code>은 "rermgorpsam"이고 주어진 <code>queries</code>를 순서대로 처리하면 다음과 같습니다.</li>
 </ul>
 
+<p>|queries|my_string|</p>
+
+<p>|---|---|</p>
+
+<p>||"rermgorpsam"|</p>
+
+<p>|[2, 3]|"remrgorpsam"|</p>
+
+<p>|[0, 7]|"progrmersam"|</p>
+
+<p>|[5, 9]|"prograsremm"|</p>
+
+<p>|[6, 10]|"programmers"|</p>
+<div class="highlight"><pre class="codehilite"><code>따라서 "programmers"를 return 합니다.
+</code></pre></div>
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
