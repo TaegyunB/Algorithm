@@ -1,10 +1,10 @@
 # [level 0] 간단한 논리 연산 - 181917 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181917) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181917?language=java) 
 
 ### 성능 요약
 
-메모리: 10.2 MB, 시간: 0.00 ms
+메모리: 80.3 MB, 시간: 0.03 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 10일 15:20:05
+2024년 09월 15일 18:21:01
 
 ### 문제 설명
 
