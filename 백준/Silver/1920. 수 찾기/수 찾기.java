@@ -1,39 +1,56 @@
 import java.util.Scanner;
-import java.util.HashSet;
+import java.util.Arrays;
 
-public class Main  {
+public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         int N = sc.nextInt();
-        HashSet<Integer> A = new HashSet<>();
-        /*
-        HashSet의 역할
-            - 중복 없는 데이터 저장
-            - 빠른 검색
-                - contains() 메소드를 사용
-            - 해시 기반 자료구조
-            - 순서 보장 없음
-         */
-
+        int[] A = new int[N];
 
         for(int i=0; i<N; i++) {
-            A.add(sc.nextInt());
+            A[i] = sc.nextInt();
         }
 
+        Arrays.sort(A);
 
         int M = sc.nextInt();
         for(int i=0; i<M; i++) {
             int x = sc.nextInt();
-            boolean result = false;
+            int result = binarySearch(A, x);
 
-            if (A.contains(x)) {
-                System.out.println(1);
+            if (result != -1) {
+                System.out.println(1 + " ");
             }
             else {
-                System.out.println(0);
+                System.out.println(0 + " ");
+            }
+        }
+
+    }
+
+    public static int binarySearch(int[] arr, int target) {
+        int lo = 0;
+        int hi = arr.length - 1;
+
+        // lo가 hi보다 커지기 전까지 반복
+        while (lo <= hi) {
+
+            int mid = (lo + hi) / 2;
+
+            if (target < arr[mid]) {
+                hi = mid - 1;
             }
 
+            else if (target > arr[mid]) {
+                lo = mid + 1;
+            }
+
+            else {
+                return mid;
+            }
         }
+        return -1;
     }
 }
+
