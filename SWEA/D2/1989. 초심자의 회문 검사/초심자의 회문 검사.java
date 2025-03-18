@@ -1,37 +1,35 @@
 import java.util.Scanner;
-import java.io.FileInputStream;
 
-class Solution
-{
-	public static void main(String args[]) throws Exception
-	{
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-		Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt();
 
-		int T = sc.nextInt();
-        
-        for(int i=0; i<T; i++) {
-         	String word = sc.next();
-			int mid = word.length() / 2;
+        for(int tc=1; tc<=T; tc++) {
+            String word = sc.next();
+            int wordLen = word.length();
+
             boolean result = true;
-            
-            // 팰린드롬 검사
-            for(int j=0; j<mid; j++) {
-                int len = word.length();
-             	if (word.charAt(j) == word.charAt(len - j - 1)) {
-                 	continue;   
-                }
-                else {
+
+            int i = 0;
+            int j = wordLen-1;
+
+            while(i < j) {
+                if(word.charAt(i) != word.charAt(j)) {
                     result = false;
                     break;
                 }
+                i += 1;
+                j -= 1;
             }
-            if (result) {
-             	System.out.println("#" + (i+1) + " " + 1);   
+
+            if(result) {
+                System.out.println("#" + tc + " " + 1);
             }
             else {
-             	System.out.println("#" + (i+1) + " " + 0);   
+                System.out.println("#" + tc + " " + 0);
             }
         }
-	}
+    }
 }
