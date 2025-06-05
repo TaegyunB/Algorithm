@@ -17,7 +17,7 @@ public class Solution {
 			int max_count = 0;
 			int count = 0;
 			for(int i=0; i<input.length(); i++) {
-				int num = input.charAt(i) - '0';
+				int num = input.charAt(i) - '0';  // char형 숫자를 실제 숫자로 바꾸는 고전적인 방법
 				
 				if(num == 1) {
 					count++;
