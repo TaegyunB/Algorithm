@@ -41,6 +41,7 @@ public class Solution {
 							}
 						}
 
+						// 아래
 						ni++;
 					}
 
