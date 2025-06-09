@@ -7,18 +7,6 @@ public class Solution {
 	static int[] di = { 0, 1, 0, -1 };
 	static int[] dj = { 1, 0, -1, 0 };
 
-	// 괴물 찾기
-	static int[] findMonster(int N, int[][] arr) {
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				if (arr[i][j] == 2) {
-					return new int[] { i, j };
-				}
-			}
-		}
-		return null; // 괴물을 못 찾을 경우
-	}
-
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -58,5 +46,17 @@ public class Solution {
 
 			System.out.printf("#%d %d\n", tc, cnt);
 		}
+	}
+
+	// 괴물 찾기
+	static int[] findMonster(int N, int[][] arr) {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if (arr[i][j] == 2) {
+					return new int[] { i, j };
+				}
+			}
+		}
+		return null; // 괴물을 못 찾을 경우
 	}
 }
