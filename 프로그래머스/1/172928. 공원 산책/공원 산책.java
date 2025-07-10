@@ -19,6 +19,7 @@ class Solution {
             int dir = 0;
             boolean canMove = true;
             
+            // 이동 경로를 한 칸씩 확인
             for(int j=0; j<times; j++) {
                 if(routes[i].charAt(0) == 'E') {
                     dir = 0;
