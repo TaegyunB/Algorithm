@@ -1,63 +1,69 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
+import java.util.Scanner;
 
 public class Solution {
 
-	// 오른쪽, 아래, 오른쪽 아래 대각선, 왼쪽 아래 대각선
-	static int[] di = { 0, 1, 1, 1 };
-	static int[] dj = { 1, 0, 1, -1 };
+    private static int[] dx = {0, 1, 1, 1};
+    private static int[] dy = {1, 1, 0, -1};
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
 
-		int T = Integer.parseInt(br.readLine());
+        int T = sc.nextInt();
+        for (int tc=1; tc<=T; tc++) {
+            int N = sc.nextInt();
 
-		for (int tc = 1; tc <= T; tc++) {
-			int N = Integer.parseInt(br.readLine());
-			char[][] arr = new char[N][N];
+            char[][] arr = new char[N][N];
 
-			for (int i = 0; i < N; i++) {
-				String line = br.readLine();
-				for (int j = 0; j < N; j++) {
-					arr[i][j] = line.charAt(j);
-				}
-			}
+            for (int j=0; j<N; j++) {
+                String input = sc.next();
+                for (int k=0; k<N; k++) {
+                    arr[j][k] = input.charAt(k);
+                }
+            }
 
-			boolean found = false;
+            boolean found = false;
+            for (int j=0; j<N; j++) {
+                for (int k=0; k<N; k++) {
+                    if (arr[j][k] == 'o') {
+                        boolean result = findResult(arr, N, j, k);
 
-			/*
-			 * outer: 특정 반복문 블록에 이름을 붙여서 break나 continue할 때 바로 해당 반복문을 빠져나갈 수 있게 해줌
-			 */
-			outer: // 3중 루프 break를 위한 라벨
-			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < N; j++) {
-					if (arr[i][j] != 'o')
-						continue;
+                        if (result) {
+                            found = true;
+                            break;
+                        } else {
+                            continue;
+                        }
+                    }
+                }
 
-					for (int dir = 0; dir < 4; dir++) {
-						int cnt = 1;
-						int ni = i + di[dir];
-						int nj = j + dj[dir];
+                if (found) {
+                    System.out.printf("#%d YES\n", tc);
+                    break;
+                }
+            }
+            if (!found) {
+                System.out.printf("#%d NO\n", tc);
+            }
+        }
+    }
 
-						while (ni >= 0 && ni < N && nj >= 0 && nj < N && arr[ni][nj] == 'o') {
-							cnt++;
-							if (cnt >= 5) {
-								found = true;
-								break outer; // 5개 이상 발견하면 바로 전체 루프 탈출
-							}
-							ni += di[dir];
-							nj += dj[dir];
-						}
-					}
-				}
-			}
-			
-			if(found) {
-				System.out.printf("#%d YES\n", tc);
-			} else {
-				System.out.printf("#%d NO\n", tc);
-			}
-		}
-	}
+    // 오목 확인 여부
+    public static boolean findResult(char[][] arr, int N, int x, int y) {
+        for (int i=0; i<4; i++) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            int cnt = 1;
+
+            while (nx >= 0 && nx < N && ny >= 0 && ny < N && arr[nx][ny] == 'o') {
+                nx += dx[i];
+                ny += dy[i];
+                cnt++;
+            }
+
+            if (cnt >= 5) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
