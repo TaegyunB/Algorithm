@@ -2,9 +2,9 @@ import java.util.*;
 
 class Solution {
     
-    // 위치 클래스 생성
+    // 위치와 거리 정보를 담는 클래스
     static class Pos {
-        int x, y, dist;
+        int x, y, dist;  // x좌표, y좌표, 시작점부터의 거리
         
         Pos(int x, int y, int dist) {
             this.x = x;
@@ -27,14 +27,15 @@ class Solution {
         return result;
     }
     
-    // bfs 함수
+    // BFS를 이용한 최단거리 탐색 함수
     private int bfs(int[][] maps, int x, int y, boolean[][] visited, int n, int m) {
-        // 큐 생성 
+        // BFS를 위한 큐 생성
         Queue<Pos> q = new LinkedList<>();
         
         q.offer(new Pos(x, y, 1));
         visited[x][y] = true;
         
+        // 쿠가 빌 때까지 반복
         while (!q.isEmpty()) {
             Pos c = q.poll();
             int cx = c.x;
