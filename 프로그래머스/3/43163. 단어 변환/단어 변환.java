@@ -2,6 +2,7 @@ import java.util.*;
 
 class Solution {
     
+    // 큐에 저장할 위치 정보 클래스 (단어와 변환 단계 수)
     static class Pos {
         String current;
         int dist;
@@ -12,14 +13,15 @@ class Solution {
         }
     }
     
-    // main 
+    // 메인 함수
     public int solution(String begin, String target, String[] words) {
         
-        // begin 단어가 words에 없으면 return 0
+        // target 단어가 words 배열에 있는지 확인
         boolean hasTarget = false;
         for (String word : words) {
             if (target.equals(word)) {
                 hasTarget = true;
+                break;
             }
         }
         
@@ -31,18 +33,21 @@ class Solution {
         return bfs(begin, target, words, visited); 
     }
     
-    // bfs
+    // BFS를 이용한 최단 경로 탐색
     private int bfs(String begin, String target, String[] words, boolean[] visited) {
+        // BFS를 위한 큐 생성
         Queue<Pos> q = new LinkedList<>();
         
+        // 시작 단어를 큐에 추가 (변환 단계 0부터 시작)
         q.offer(new Pos(begin, 0));
         
+        // 큐가 빌 때까지 반복
         while (!q.isEmpty()) {
             Pos pos = q.poll();
             String current = pos.current;
             int dist = pos.dist;
             
-            // 변환해서 같아졌으면
+            // 목표 단어에 도달했는지 확인
             if (current.equals(target)) {
                 return dist;
             }
@@ -51,6 +56,7 @@ class Solution {
                 String word = words[i];
                 boolean isChecked = check(current, word);
                 
+                // 변환 가능하고 아직 방문하지 않은 단어라면
                 if (isChecked && !visited[i]) {
                     q.offer(new Pos(word, dist+1));
                     visited[i] = true;
@@ -61,7 +67,7 @@ class Solution {
         return 0;
     }
     
-    // 한글자 이상 다른지 확인
+    // 두 단어가 정확히 한 글자만 다른지 확인하는 함수
     private boolean check(String word_1, String word_2) {
             
         int cnt_diff = 0;
