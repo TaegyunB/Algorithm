@@ -6,6 +6,7 @@ public class Solution {
 	public static void main(String[] args) throws Exception {
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		
 		int T = Integer.parseInt(br.readLine());
 		for (int tc=1; tc<=T; tc++) {
@@ -17,10 +18,10 @@ public class Solution {
 			
 			// 2차원 배열에 퍼즐 그리기
 			for (int i=0; i<N; i++) {
-				String[] input = br.readLine().split(" ");
+				st = new StringTokenizer(br.readLine());  // split() 보다 빠름
 				
 				for (int j=0; j<N; j++) {
-					arr[i][j] = Integer.parseInt(input[j]);
+					arr[i][j] = Integer.parseInt(st.nextToken());
 				}
 			}
 			
@@ -34,7 +35,7 @@ public class Solution {
 						int cnt = 1;
 						int ny = y+1;  // 다음에 단어가 들어갈 수 있는 지 확인하기 위한 y 변수
 						
-						while (ny >= 0 && ny < N && arr[x][ny] == 1) {  // 다음에 단어가 들어갈 수 있을 때 까지 확인
+						while (ny < N && arr[x][ny] == 1) {  // 다음에 단어가 들어갈 수 있을 때 까지 확인
 							cnt++;
 							ny++; 
 					
@@ -56,7 +57,7 @@ public class Solution {
 						int cnt = 1;
 						int nx = x+1;   // 다음에 단어가 들어갈 수 있는 지 확인하기 위한 x 변수
 						
-						while (nx >= 0 && nx < N && arr[nx][y] == 1) {  // 다음에 단어가 들어갈 수 있을 때 까지 확인
+						while (nx < N && arr[nx][y] == 1) {  // 다음에 단어가 들어갈 수 있을 때 까지 확인
 							cnt++;
 							nx++;
 						}
@@ -70,7 +71,9 @@ public class Solution {
 				}
 			}
 			
-			System.out.printf("#%d %d\n", tc, answer);
+			sb.append("#").append(tc).append(" ").append(answer).append("\n");  // StringBuilder를 사용해서 출력을 한 번에 모아서 처리
 		}
+		
+		System.out.print(sb);
 	}
 }
