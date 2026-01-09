@@ -51,22 +51,23 @@ public class Solution {
 				
 					int save_nx = dx[dir];
 					int save_ny = dy[dir];
-					int cnt = 0;
-					boolean flag = false;
+					int cnt = 0;  // 바꿔야할 돌의 개수
+					boolean flag = false;  // 끝에 같은 돌이 있는지 확인하기 위함
 					
-					while (nx >= 0 && nx < N && ny >= 0 && ny < N && arr[nx][ny] != 0) {  // 다음 위치에 있는 돌이 비어있지 않고 자신의 돌 색상이랑 다르다면
-						if (arr[nx][ny] == color) {
-							flag = true;
+					while (nx >= 0 && nx < N && ny >= 0 && ny < N && arr[nx][ny] != 0) {  // 범위 안에 있고 옆에 돌이 있을 때까지
+						if (arr[nx][ny] == color) {  // 현재 돌(맨 끝의 돌이)이 현재 순서의 돌과 같다면
+							flag = true;  
 							break;
 						}
-						else if (arr[nx][ny] != color) {
-							nx += dx[dir];
-							ny += dy[dir];
-							cnt++;
+						else if (arr[nx][ny] != color) {  // 현재 돌이 현재 순서의 돌과 같지 않다면
+							nx += dx[dir];  // 다음 위치로
+							ny += dy[dir];  // 다음 위치로
+							cnt++;  // 몇개인지 파악하기 위해 숫자 세기
 						}	
 					}
 					
-					if (flag) {						
+					// flag가 True라면 맨 끝에 같은 돌이 위치해 있다는 뜻이니 cnt만큼 반복하면서 다른 돌을 현재 돌로 수정
+					if (flag) {	
 						nx = x + save_nx;
 						ny = y + save_ny;
 						for (int j=0; j<cnt; j++) {
