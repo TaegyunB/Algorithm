@@ -26,16 +26,27 @@ public class Solution {
 			
 			sb.append("#").append(tc).append(" ");
 			
+			/**
+			 * 방법 1(List 선언) - 비효율적(O(n)을 한번 더 사용)
+			 */
 			// List 선언해서 stack.pop() 한 값을 추가
-			List<Character> list = new ArrayList<>();  
-			int stackSize = stack.size();
-			for (int i=0; i<stackSize; i++) {
-				list.add(stack.pop());
-			}
+//			List<Character> list = new ArrayList<>();  
+//			int stackSize = stack.size();
+//			for (int i=0; i<stackSize; i++) {
+//				list.add(stack.pop());
+//			}
 			
 			// 순서가 거꾸로 되어있기 때문에 거꾸로 다시 바꾸기 위함
-			for (int i=list.size()-1; i>=0; i--) {
-				sb.append(list.get(i));
+//			for (int i=list.size()-1; i>=0; i--) {
+//				sb.append(list.get(i));
+//			}
+			
+			/**
+			 * 방법 2(Deque의 Iterator 사용) - 효율적(descendingIterator로 stack 역순 조회)
+			 */
+			Iterator<Character> it = stack.descendingIterator();
+			while (it.hasNext()) {
+				sb.append(it.next());
 			}
 			
 			sb.append("\n");
