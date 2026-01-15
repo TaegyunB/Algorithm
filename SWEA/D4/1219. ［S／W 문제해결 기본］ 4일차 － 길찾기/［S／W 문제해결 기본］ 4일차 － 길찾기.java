@@ -14,64 +14,57 @@ public class Solution {
 			
 			int[] arr1 = new int[100];
 			int[] arr2 = new int[100];
-			boolean[] arr1Visited = new boolean[100];
-			boolean[] arr2Visited = new boolean[100];
+			boolean[] visited = new boolean[100];
 			
 			st = new StringTokenizer(br.readLine());
 			for (int i=0; i<N; i++) {
-				int index = Integer.parseInt(st.nextToken());
-				int node = Integer.parseInt(st.nextToken());
+				int index = Integer.parseInt(st.nextToken());  // 출발 노드
+				int node = Integer.parseInt(st.nextToken());  // 도착 노드
 				
+				// 첫 번째 갈림길이 비어있으면 arr1에 저장
 				if (arr1[index] == 0) {
 					arr1[index] = node;
-				} else {
+				} else {  // 이미 arr1에 값이 있으면 arr2에 저장 (두 번째 갈림길)
 					arr2[index] = node;
 				}
 			}
 			
+			// DFS(깊이 우선 탐색)를 위한 스택 생성
 			Deque<Integer> stack = new ArrayDeque<>();
-			stack.push(arr1[0]);
-			arr1Visited[0] = true;
-			boolean flag = true;
+			stack.push(0);  // 시적잠 0번 노드를 스택에 추가
+			visited[0] = true;  // 0번 노드 방문 처리
 			
-			while (flag) {
-				int top = stack.peek();
+			boolean found = false;
+			
+			// 스택이 빌 때까지 탐색 (모든 경로 탐색)
+			while (!stack.isEmpty()) {
+				int now = stack.pop();
 				
-				// 길이 있다면
-				if (arr1[top] == 99 || arr2[top] == 99) {
-					break;
-				}
-				
-				// 길을 찾지 못했을 때 종료 (이미 방문했던 곳이라면)
-				if (arr1Visited[top] == true && arr2Visited[top] == true) {
-					flag = false;
+				// 목적지까지 길이 있다면 탐색 종료
+				if (now == 99) {
+					found = true;
 					break;
 				}
 		
-				// 첫번째 배열의 노드에 방문하지 않았다면
-				if (arr1[top] != 0 && arr1Visited[top] == false) {
-					stack.push(arr1[top]);  // 스택에 추가
-					arr1Visited[top] = true;  // 방문 기록
+				// 현재 노드에서 갈 수 있는 첫 번째 경로 확인
+				// arr1[now]에 노드가 있고(!=0), 아직 방문하지 않았다면(!visited)
+				if (arr1[now] != 0 && !visited[arr1[now]]) {
+					stack.push(arr1[now]);  // 다음 탐색을 위해 스택에 추가
+					visited[arr1[now]] = true;  // 방문 기록
 				} 
 				
-				// 두번째 배열의 노드에 방문하지 않았다면
-				else if (arr2[top] != 0 && arr2Visited[top] == false){
-					stack.push(arr2[top]);  // 스택에 추가
-					arr2Visited[top] = true;  // 방문 기록
-				} 
-
-				// 해당 노드에 배열이 비어있다면
-				else if (arr1[top] == 0 || arr2[top] == 0) {
-					stack.pop();  // 방문할 수 없는 곳이니 pop 
-					arr1Visited[top] = true;  // 방문 기록
-					arr2Visited[top] = true;  // 방문 기록
-				}	
+				// 현재 노드에서 갈 수 있는 두 번째 경로 확인
+				// arr2[now]에 노드가 있고(!=0), 아직 방문하지 않았다면(!visited)
+				if (arr2[now] != 0 && !visited[arr2[now]]){
+					stack.push(arr2[now]);  // 다음 탐색을 위해 스택에 추가
+					visited[arr2[now]] = true;  // 방문 기록
+				} 	
 			}
 			
-			if (flag) {
-				sb.append("#").append(tc).append(" ").append(1).append("\n");
+			if (found) {
+				sb.append("#").append(tcNum).append(" ").append(1).append("\n");
 			} else {
-				sb.append("#").append(tc).append(" ").append(0).append("\n");
+				sb.append("#").append(tcNum).append(" ").append(0).append("\n");
 			}
 		}
 		
