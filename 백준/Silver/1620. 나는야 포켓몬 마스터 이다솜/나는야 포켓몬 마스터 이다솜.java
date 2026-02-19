@@ -11,22 +11,22 @@ public class Main {
 		int N = Integer.parseInt(st.nextToken());
 		int M = Integer.parseInt(st.nextToken());
 		
-		Map<String, Integer> map = new HashMap<>();
-		String[] numToName = new String[N];  // 배열을 사용하여 인덱스로 접근
+		Map<String, Integer> nameToNum = new HashMap<>();
+		Map<Integer, String> numToName = new HashMap<>();
 		
 		for (int i=0; i<N; i++) {
 			String pokemon = br.readLine();
-			map.put(pokemon, i+1);
-			numToName[i] = pokemon;
+			nameToNum.put(pokemon, i+1);
+			numToName.put(i+1, pokemon);
 		}
 		
 		for (int i=0; i<M; i++) {
 			String question = br.readLine();
-			if (map.containsKey(question)) {
-				sb.append(map.get(question)).append("\n");
+			if (nameToNum.containsKey(question)) {
+				sb.append(nameToNum.get(question)).append("\n");
 			} else {
 				int index = Integer.parseInt(question);
-				sb.append(numToName[index-1]).append("\n");
+				sb.append(numToName.get(index)).append("\n");
 
 			}
 		}
