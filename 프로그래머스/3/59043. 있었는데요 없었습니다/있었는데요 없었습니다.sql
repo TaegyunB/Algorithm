@@ -1,0 +1,6 @@
+SELECT ai.ANIMAL_ID, ao.NAME
+FROM ANIMAL_INS ai
+INNER JOIN ANIMAL_OUTS ao
+    ON ai.ANIMAL_ID = ao.ANIMAL_ID
+WHERE ai.DATETIME > ao.DATETIME  # 보호 시작일보다 입양일이 더 빠른 -> 입양일이 더 작아야함
+ORDER BY ai.DATETIME;
