@@ -2,11 +2,11 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-
+	
 	static int N, S;
 	static int[] arr;
 	static int cnt = 0;
-	
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -21,26 +21,26 @@ public class Main {
 			arr[i] = Integer.parseInt(st.nextToken());
 		}
 		
-		// 완전 탐색(브루트포스)
 		dfs(0, 0);
 		
-		if (S == 0) {  // S가 0으로 시작하면 공집합일 때도 cnt가 +1로 되기 때문에 cnt-- 해주기
+		if (S == 0) {  // 처음에 공집합인데 더해졌을 때
 			cnt--;
 		}
 		
 		System.out.println(cnt);
-	}
+	}	
 	
+	// 재귀로 완전 탐색(브루트 포스) 실시
 	static void dfs(int index, int sum) {
+		// 종료 조건
 		if (index == N) {
 			if (sum == S) {
 				cnt++;
 			}
-			
 			return;
 		}
 		
-		dfs(index + 1, sum + arr[index]);  // 부분수열에 포함
-		dfs(index + 1, sum);  // 부분수열에 미포함
+		dfs(index + 1, sum + arr[index]);  // 다음 부분 수열을 더한 것
+		dfs(index + 1, sum);  // 다음 부분 수열을 더하지 않은 것
 	}
 }
