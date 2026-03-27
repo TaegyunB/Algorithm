@@ -37,17 +37,18 @@ class Solution {
         return cnt;
     }
     
+    // 얼마나 더 깊이 연결되어 있는지 확인하게 위해 dfs 사용
     private void dfs(int node) {
-        Deque<Integer> queue = new ArrayDeque<>();
-        queue.offer(node);
+        Deque<Integer> stack = new ArrayDeque<>();
+        stack.push(node);
         visited[node] = true;
         
-        while (!queue.isEmpty()) {
-            int startNode = queue.poll();
+        while (!stack.isEmpty()) {
+            int startNode = stack.pop();
             
             for (int nextNode : list.get(startNode)) {
                 if (!visited[nextNode]) {
-                    queue.offer(nextNode);
+                    stack.push(nextNode);
                     visited[nextNode] = true;
                 }
             }
