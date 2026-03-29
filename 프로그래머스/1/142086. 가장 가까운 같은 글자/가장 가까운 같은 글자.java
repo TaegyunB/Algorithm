@@ -2,19 +2,22 @@ import java.util.*;
 
 class Solution {
     public int[] solution(String s) {
+        int[] answer = {};
         
-        ArrayList<Integer> answer = new ArrayList<>();
-        Map<Character, Integer> alp = new HashMap<>();
+        List<Integer> list = new ArrayList<>();
+        Map<Character, Integer> map = new HashMap<>();
         
-        for(int i=0; i<s.length(); i++) {
-            if (alp.containsKey(s.charAt(i))) {
-                answer.add(i - alp.get(s.charAt(i)));
+        for (int i=0; i<s.length(); i++) {
+            if (!map.containsKey(s.charAt(i))) {
+                map.put(s.charAt(i), i);
+                list.add(-1);
             } else {
-                answer.add(-1);
+                int idx = map.get(s.charAt(i));
+                list.add(i - idx);
+                map.put(s.charAt(i), i);
             }
-            alp.put(s.charAt(i), i);
         }
         
-        return answer.stream().mapToInt(i->i).toArray();
+        return list.stream().mapToInt(Integer::intValue).toArray();
     }
 }
