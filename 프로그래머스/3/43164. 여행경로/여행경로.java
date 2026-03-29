@@ -4,7 +4,7 @@ class Solution {
     
     static List<String> route;
     static boolean[] visited;
-    String[] answer = {};
+    static String[] answer = {};
     
     public String[] solution(String[][] tickets) {
         
