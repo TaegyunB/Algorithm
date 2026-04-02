@@ -30,7 +30,7 @@ class Solution {
     // BFS를 이용한 최단거리 탐색 함수
     private int bfs(int[][] maps, int x, int y, boolean[][] visited, int n, int m) {
         // BFS를 위한 큐 생성
-        Queue<Pos> q = new LinkedList<>();
+        Queue<Pos> q = new ArrayDeque<>();
         
         q.offer(new Pos(x, y, 1));
         visited[x][y] = true;
