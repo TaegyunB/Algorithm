@@ -16,7 +16,7 @@ class Solution {
         }
         
         for (int i=0; i<road.length; i++) {
-            int start = road[i][0] -  1;
+            int start = road[i][0] - 1;
             int end = road[i][1] - 1;
             int dist = road[i][2];
             
@@ -38,8 +38,9 @@ class Solution {
         return answer;
     }
     
+    // 다익스트라는 거리가 짧은 노트부터 꺼내야 하기 때문에 PQ를 사용
     private void dijkstra(int startNode, int K) {
-        Deque<Pos> q = new ArrayDeque<>();
+        Queue<Pos> q = new PriorityQueue<>((a, b) -> a.dist - b.dist);
         
         q.offer(new Pos(startNode, 0));
         
