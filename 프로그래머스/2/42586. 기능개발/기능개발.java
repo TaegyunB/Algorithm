@@ -2,30 +2,32 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
+        int[] remains = new int[progresses.length];
         
-        int[] pList = new int[progresses.length];
-        // 각 기능의 완료 일수 계산
         for (int i=0; i<progresses.length; i++) {
-            pList[i] = (int) Math.ceil((100.0 - progresses[i]) / speeds[i]);
+            remains[i] = (int) Math.ceil((double)(100 - progresses[i]) / speeds[i]);
         }
         
         List<Integer> list = new ArrayList<>();
         
-        // 배포 그룹 묶기
-        int i = 0;
-        while (i < pList.length) {
-            int cnt = 1;
-            int curDay = pList[i];  // 현재 그룹의 기준 일수
+        int start = remains[0];
+        int cnt = 1;
+        for (int i=1; i<=remains.length; i++) {
             
-            // 다음 기능들이 maxDay 이하면 같이 배포
-            while (i + cnt < pList.length && curDay >= pList[i+cnt]) {
-                cnt++;
+            if (i == remains.length) {
+                list.add(cnt);
+                break;
             }
             
-            i += cnt;  // 다음 그룹으로 이동
-            list.add(cnt);
+            if (start >= remains[i]) {
+                cnt++;
+            } else {
+                list.add(cnt);
+                cnt = 1;
+                start = remains[i];
+            }
         }
         
-        return list.stream().mapToInt(x -> x).toArray();
+        return list.stream().mapToInt(i -> i).toArray();
     }
 }
