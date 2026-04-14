@@ -2,8 +2,6 @@ import java.util.*;
 
 class Solution {
     public int[] solution(String s) {
-        int[] answer = {};
-        
         List<Integer> list = new ArrayList<>();
         Map<Character, Integer> map = new HashMap<>();
         
@@ -18,6 +16,6 @@ class Solution {
             }
         }
         
-        return list.stream().mapToInt(Integer::intValue).toArray();
+        return list.stream().mapToInt(x -> x).toArray();
     }
 }
