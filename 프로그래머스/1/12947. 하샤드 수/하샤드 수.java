@@ -7,8 +7,6 @@ class Solution {
             sum += s.charAt(i) - '0';
         }
         
-        System.out.println(sum);
-        
         if (x % sum == 0) {
             return true;
         } else {
