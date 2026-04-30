@@ -1,24 +1,18 @@
-import java.util.*;
-
 class Solution {
     public int solution(String t, String p) {
-        int p_length = p.length();
-        int result = 0;
         
-        for(int i=0; i<=t.length() - p_length; i++) {
-            StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(t);  // 문자열 문법을 사용하기 위해 StringBuilder로 변환
+        int until = t.length() - p.length();  // 부분 문자열 탐색의 마지막 인덱스
+        int cnt = 0;  // 작거나 같은 것이 나오는 횟수 카운트
+        
+        for (int i=0; i<=until; i++) {  // until까지 순회하면서
+            long test = Long.parseLong(sb.substring(i, i+p.length()));  // 현재 위치에서 p의 길이만큼 자르고 long 타입으로 변환
             
-            for(int j=i; j<i + p_length; j++) {
-                sb.append(t.charAt(j));
-            }
-            
-//             System.out.println(sb.toString());
-            
-            if (Long.parseLong(sb.toString()) <= Long.parseLong(p)) {
-                result++;
+            if (test <= Long.parseLong(p)) {  // p보다 작거나 같은 수면
+                cnt++;  // 카운트 수 증가
             }
         }
         
-        return result;
+        return cnt;
     }
 }
