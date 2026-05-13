@@ -1,7 +1,6 @@
-import java.util.*;
-
 class Solution {
     public int[] solution(int n) {
+        int[] answer = new int[(n*(n+1)/2)];  // 등차수열 합
         int[][] arr = new int[n][n];
         
         int x = -1;
@@ -24,17 +23,16 @@ class Solution {
             }
         }
         
-        List<Integer> list = new ArrayList<>();
+        int k = 0;
         for (int i=0; i<n; i++) {
             for (int j=0; j<n; j++) {
-                if (arr[i][j] == 0) {
-                    continue;
+                if (arr[i][j] != 0) {
+                    answer[k] = arr[i][j];
+                    k++;
                 }
-                
-                list.add(arr[i][j]);
             }
         }
         
-        return list.stream().mapToInt(i -> i).toArray();
+        return answer;
     }
 }
