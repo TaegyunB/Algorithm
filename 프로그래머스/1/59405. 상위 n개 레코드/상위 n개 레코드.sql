@@ -1,4 +1,4 @@
-SELECT NAME
-FROM ANIMAL_INS
-ORDER BY DATETIME
-LIMIT 1;  -- 결과의 개수를 제한
+select name
+from animal_ins
+order by datetime
+limit 1;
