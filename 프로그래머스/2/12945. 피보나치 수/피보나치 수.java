@@ -9,7 +9,8 @@ class Solution {
         
         int i = 2;
         while (i <= n) {
-            fibo[i] = (fibo[i-1] + fibo[i-2]) % 1234567;
+            // f(47)부터는 21억을 넘기 때문에 int 범위를 초과함
+            fibo[i] = (fibo[i-1] + fibo[i-2]) % 1234567;  // 그래서 fibo(n) 구한 값을 바로 % 1234567 해서 나머지 값을 저장
             i++;
         }
         
