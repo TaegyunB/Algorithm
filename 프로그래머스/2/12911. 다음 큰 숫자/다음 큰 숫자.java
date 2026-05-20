@@ -1,35 +1,15 @@
 class Solution {
     public int solution(int n) {
+        // Integer.bitCount() : n을 2진수로 변환했을 때 1의 개수를 반환
         
-        int oneSum = 0;
-        String binary = Integer.toString(n, 2);
-        
-        for (int i=0; i<binary.length(); i++) {
-            if (binary.charAt(i) == '1') {
-                oneSum++;
-            }    
-        }
-        
+        int standardOne = Integer.bitCount(n);
         n++;
         
-        boolean flag = false;
-        while (!flag) {
-            String newBinary = Integer.toString(n, 2);
-            int cntOne = 0;
+        while (Integer.bitCount(n) != standardOne) {
+            n++;
             
-            for (int i=0; i<newBinary.length(); i++) {
-                if (newBinary.charAt(i) == '1') {
-                    cntOne++;
-                }    
-            }
-            
-            if (oneSum == cntOne) {
-                return n;
-            }
-            
-            n++; 
         }
         
-        return 0;
+        return n;
     }
 }
