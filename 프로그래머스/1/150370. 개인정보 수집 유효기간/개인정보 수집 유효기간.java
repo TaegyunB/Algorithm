@@ -5,13 +5,11 @@ class Solution {
         List<Integer> answer = new ArrayList<>();
         
         // today
-        String[] todaySplit = today.split("\\.");
+        String[] todaySplit = today.split("\\.");  // 주의
         
         int tyear = Integer.parseInt(todaySplit[0]);
         int tmonth = Integer.parseInt(todaySplit[1]);
         int tday = Integer.parseInt(todaySplit[2]);
-        
-        System.out.println(tyear + " " + tmonth + " " + tday);
         
         // terms
         Map<Character, Integer> map = new HashMap<>();
@@ -26,21 +24,15 @@ class Solution {
         for (int i=0; i<privacies.length; i++) {
             String privacy = privacies[i];
             String[] priSplit = privacy.split(" ");
-            // System.out.println(priSplit[0] + " " + priSplit[1]);
             
             String availableDate = priSplit[1];
-            
-            // System.out.println(availableDate);
             
             String[] dateSplit = priSplit[0].split("\\.");
             int year = Integer.parseInt(dateSplit[0]);
             int month = Integer.parseInt(dateSplit[1]);
             int date = Integer.parseInt(dateSplit[2]);
             
-            // System.out.println(year + " " + month + " " + date);
-            
             int getMonth = map.get(availableDate.charAt(0));
-            // System.out.println(getMonth);
             
             month += getMonth;
             while (month > 12) { // 유효기간은 1 이상 100 이하이기 때문에
@@ -59,7 +51,6 @@ class Solution {
                 answer.add(i+1);
             }
         }
-            
             
         return answer.stream().mapToInt(x -> x).toArray();
     }
