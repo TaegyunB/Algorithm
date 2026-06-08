@@ -2,78 +2,76 @@ import java.util.*;
 
 class Solution {
     
-    static List<ArrayList<Pos>> tree;
-    static int[] cntGraph;
+    static int n;
+    static int[][] edge;
     static boolean[] visited;
+    static int[] dists;
+    static List<ArrayList<Integer>> tree;
     
     public int solution(int n, int[][] edge) {
         
-        tree = new ArrayList<>();
-        cntGraph = new int[n+1];
+        n = n;
+        edge = edge;
         visited = new boolean[n+1];
+        dists = new int[n+1];
+        tree = new ArrayList<>();
         
-        // tree 선언
-        for (int i=0; i<=n; i++) {
+        for (int i=0; i<n+1; i++) {
             tree.add(new ArrayList<>());
         }
         
-        for (int i=0; i<edge.length; i++) {
-            int start = edge[i][0];
-            int end = edge[i][1];
+        for (int[] con : edge) {
+            int startNode = con[0];
+            int endNode = con[1];
             
-            tree.get(start).add(new Pos(end, 1));
-            tree.get(end).add(new Pos(start, 1));
+            tree.get(startNode).add(endNode);
+            tree.get(endNode).add(startNode);
         }
         
-        // 무한대로 선언
-        for (int i=1; i<=n; i++) {
-            cntGraph[i] = Integer.MAX_VALUE;
+        bfs(1);   
+        
+        Arrays.sort(dists);
+        int maxNum = dists[n];
+        
+        int cnt = 1;
+        for (int i=1; i<n; i++) {
+            if (maxNum == dists[i]) {
+                cnt++;
+            }
         }
         
+        return cnt;
+    }
+    
+    static class Pos {
+        int node;
+        int dist;
+        
+        public Pos(int node, int dist) {
+            this.node = node;
+            this.dist = dist;
+        }
+    }
+    
+    static void bfs(int startNode) {
         Deque<Pos> q = new ArrayDeque<>();
-        q.offer(new Pos(1, 0));
-        cntGraph[1] = 0;
-        visited[1] = true;
+        
+        q.offer(new Pos(startNode, 0));
+        visited[startNode] = true;
         
         while (!q.isEmpty()) {
             Pos pos = q.poll();
-            int next = pos.next;
-            int cnt = pos.cnt;
+            int node = pos.node;
+            int dist = pos.dist;
             
-            for (Pos nextPos : tree.get(next)) {
-                int nextNode = nextPos.next;
-                
+            for (int nextNode : tree.get(node)) {
                 if (!visited[nextNode]) {
+                    int newDist = dist + 1;
+                    dists[nextNode] = newDist;
+                    q.offer(new Pos(nextNode, newDist));
                     visited[nextNode] = true;
-                    q.offer(new Pos(nextNode, cnt + 1));
-                    cntGraph[nextNode] = cnt + 1;
-                }   
+                }
             }
         }
-        
-        int maxNum = 0;
-        int count = 0;
-        for (int i=1; i<=n; i++) {
-            if (cntGraph[i] > maxNum) {
-                maxNum = cntGraph[i];
-                count = 1;
-            } else if (cntGraph[i] == maxNum) {
-                count++;
-            }
-        }
-        
-        return count;
     }
-    
-    private class Pos {
-        int next;
-        int cnt;
-        
-        public Pos(int next, int cnt) {
-            this.next = next;
-            this.cnt = cnt;
-        }
-    }
-    
-    
 }
