@@ -2,39 +2,31 @@ class Solution {
     public int[] solution(int[] sequence, int k) {
         int n = sequence.length;
         
-        int left = 0;
-        int right = 0;
+        int len = Integer.MAX_VALUE;
+        int left = 0;  // 윈도우의 왼쪽 끝
+        int sum = 0;
         
-        int len = n;
         int minIdx = 0;
         int maxIdx = 0;
-        int sum = sequence[0];
         
-        while (left <= right) {
-            if (sum < k) {
-                if (right >= n-1) {
-                    break;
-                }
-                right++;
-                sum += sequence[right];
-            } else if (sum > k) {
+        // 윈도우의 오른쪽 끝
+        for (int right = 0; right < n; right++) {
+            sum += sequence[right];  // 오른쪽 원소를 윈도우에 추가
+            
+            // 합이 k를 넘으면 왼쪽 원소를 빼면서 left를 당겨 합을 줄임
+            while (sum > k) {
                 sum -= sequence[left];
                 left++;
-            } else if (sum == k) {
+            }
+            
+            if (sum == k) {
                 if (right - left < len) {
                     len = right - left;
                     minIdx = left;
                     maxIdx = right;
                 }
-                right++;
-                
-                if (right >= n) {
-                    break;
-                }
-                
-                sum += sequence[right];
             }
-        }
+        } 
         
         return new int[]{minIdx, maxIdx};
     }
