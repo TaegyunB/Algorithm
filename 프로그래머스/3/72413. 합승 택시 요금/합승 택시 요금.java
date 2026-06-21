@@ -1,15 +1,18 @@
 import java.util.*;
 
 class Solution {
-
-    static List<ArrayList<Pos>> tree;
-    
     public int solution(int n, int s, int a, int b, int[][] fares) {
         
-        tree = new ArrayList<>();
+        int[][] graph = new int[n+1][n+1];
         
-        for (int i=0; i<=n; i++) {
-            tree.add(new ArrayList<>());
+        for (int i=1; i<=n; i++) {
+            for (int j=1; j<=n; j++) {
+                if (i == j) {
+                    graph[i][j] = 0;
+                } else {
+                    graph[i][j] = Integer.MAX_VALUE;
+                }
+            }
         }
         
         for (int i=0; i<fares.length; i++) {
@@ -17,72 +20,37 @@ class Solution {
             int end = fares[i][1];
             int dist = fares[i][2];
             
-            tree.get(start).add(new Pos(end, dist));
-            tree.get(end).add(new Pos(start, dist));
+            graph[start][end] = dist;
+            graph[end][start] = dist;
         }
         
-        int[] distS = dijkstra(n, s);
-        int[] distA = dijkstra(n, a);
-        int[] distB = dijkstra(n, b);
-        
-        int answer = Integer.MAX_VALUE;
-        
-        for (int i=1; i<=n; i++) {
-            // 오버플로우 방지
-            if (distS[i] == Integer.MAX_VALUE || distA[i] == Integer.MAX_VALUE || distB[i] == Integer.MAX_VALUE) {
-                continue;
-            }
-            
-            int sum = distS[i] + distA[i] + distB[i];
-            
-            if (sum < answer) {
-                answer = sum;
-            }
-        }
-        
-        return answer;
-    }
-    
-    private int[] dijkstra(int n, int s) {
-        
-        int[] dists = new int[n+1];
-
-        for (int i=0; i<=n; i++) {
-            dists[i] = Integer.MAX_VALUE;
-        }
-        
-        dists[s] = 0;
-        
-        // 다익스트라이기 때문에 PQ 사용
-        Queue<Pos> q = new PriorityQueue<>((a, b) -> a.dist - b.dist);
-        q.offer(new Pos(s, 0));
-        
-        while (!q.isEmpty()) {
-            Pos pos = q.poll();
-            int start = pos.next;
-            int dist = pos.dist;
-            
-            for (Pos nextPos : tree.get(start)) {
-                int nextNode = nextPos.next;
-                int nextDist = nextPos.dist;
-                
-                if (dist + nextDist < dists[nextNode]) {
-                    dists[nextNode] = dist + nextDist;
-                    q.offer(new Pos(nextNode, dist + nextDist));
+        // 플로이드 워셜
+        for (int k=1; k<=n; k++) {
+            for (int i=1; i<=n; i++) {
+                for (int j=1; j<=n; j++) {
+                    if (i == j) {
+                        continue;
+                    }
+                    
+                    if (graph[i][k] == Integer.MAX_VALUE || graph[k][j] == Integer.MAX_VALUE) {
+                        continue;
+                    }
+                    
+                    graph[i][j] = Math.min(graph[i][j], graph[i][k] + graph[k][j]);
                 }
             }
         }
         
-        return dists;
-    }
-    
-    static class Pos {
-        int next;
-        int dist;
-        
-        public Pos(int next, int dist) {
-            this.next = next;
-            this.dist = dist;
+        int answer = Integer.MAX_VALUE;
+        for (int k=1; k<=n; k++) {
+            if (graph[s][k] == Integer.MAX_VALUE || graph[k][a] == Integer.MAX_VALUE || graph[k][b] == Integer.MAX_VALUE) {
+                continue;
+            }
+            
+            // 출발지에서 함께 가는 지점 + a, b 각각 따로 가는 시점 중에서 가장 짧게 걸리는 값 구하기
+            answer = Math.min(answer, graph[s][k] + graph[k][a] + graph[k][b]);
         }
+        
+        return answer;
     }
 }
