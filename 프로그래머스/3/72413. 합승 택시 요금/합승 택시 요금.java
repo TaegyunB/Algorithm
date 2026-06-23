@@ -1,5 +1,4 @@
-import java.util.*;
-
+// 플로이드-워셜 알고리즘
 class Solution {
     public int solution(int n, int s, int a, int b, int[][] fares) {
         
@@ -24,14 +23,10 @@ class Solution {
             graph[end][start] = dist;
         }
         
-        // 플로이드 워셜
+        // 모든 지점 쌍 사이의 최단거리 구하기
         for (int k=1; k<=n; k++) {
             for (int i=1; i<=n; i++) {
                 for (int j=1; j<=n; j++) {
-                    if (i == j) {
-                        continue;
-                    }
-                    
                     if (graph[i][k] == Integer.MAX_VALUE || graph[k][j] == Integer.MAX_VALUE) {
                         continue;
                     }
@@ -42,13 +37,13 @@ class Solution {
         }
         
         int answer = Integer.MAX_VALUE;
-        for (int k=1; k<=n; k++) {
-            if (graph[s][k] == Integer.MAX_VALUE || graph[k][a] == Integer.MAX_VALUE || graph[k][b] == Integer.MAX_VALUE) {
-                continue;
-            }
+        // 합승 지점별로 합쳐서 비교
+        for (int i=1; i<=n; i++) {
+                if (graph[s][i] == Integer.MAX_VALUE || graph[i][a] == Integer.MAX_VALUE || graph[i][b] == Integer.MAX_VALUE) {
+                    continue;
+                }
             
-            // 출발지에서 함께 가는 지점 + a, b 각각 따로 가는 시점 중에서 가장 짧게 걸리는 값 구하기
-            answer = Math.min(answer, graph[s][k] + graph[k][a] + graph[k][b]);
+            answer = Math.min(answer, graph[s][i] + graph[i][a] + graph[i][b]);
         }
         
         return answer;
