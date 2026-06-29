@@ -1,18 +1,20 @@
 class Solution {
     
-    static char[] vowels = {'A', 'E', 'I', 'O', 'U'};
-    static int count = 0;
+    static String[] vowels = {"A", "E", "I", "O", "U"};
+    static StringBuilder currentWord = new StringBuilder();
     static String targetWord;
+    static int count = 0;
     
     public int solution(String word) {
         targetWord = word;
-        StringBuilder sb = new StringBuilder();
+        dfs(currentWord);
         
-        dfs(sb);
-        return count;
+        return count - 1;
     }
     
     private void dfs(StringBuilder currentWord) {
+        count++;
+        
         if (targetWord.equals(currentWord.toString())) {
             return;
         }
@@ -21,15 +23,15 @@ class Solution {
             return;
         }
         
-        for (char vowel : vowels) {
-            count++;
-            dfs(currentWord.append(vowel));
+        for (int i=0; i<vowels.length; i++) {
+            currentWord.append(vowels[i]);
+            dfs(currentWord);
             
             if (targetWord.equals(currentWord.toString())) {
                 return;
             }
             
-            currentWord.deleteCharAt(currentWord.length()-1);
+            currentWord.deleteCharAt(currentWord.length() - 1);
         }
     }
 }
